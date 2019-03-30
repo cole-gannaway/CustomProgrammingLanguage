@@ -1,0 +1,91 @@
+program : opt_aux_file class_definition
+
+opt_aux_file	: aux_file SEMI
+				| EMPTY
+
+aux_file	: IMPORT identifier_sequence
+
+identifier_sequence	: ID
+					| ID DOT identifier_sequence
+
+class_definition : CLASS ID OBRACE definition_sequence CBRACE
+
+definition_sequence	: definition
+					| definition definition_sequence
+
+definition	: variable_def
+			| method_def
+
+variable_def	: VAR ID optInit SEMI
+
+optInit	: EQUALS expression
+		| EMPTY
+
+method_def	: FUNCTION ID OPAREN opt_parameter_sequence CPAREN block
+
+opt_parameter_sequence	: parameter_sequence
+						| EMPTY
+
+parameter_sequence	: unary
+					| unary COMMA parameter_sequence
+
+block : OBRACE statement_sequence CBRACE
+
+statement_sequence	: statement 
+					| statement statement_sequence
+
+statement	: expression SEMI
+			| variable_def
+			| return_statement
+			| if_statement
+			| while_statement
+
+return_statement : RETURN expression SEMI
+
+if_statement : IF OPAREN expression CPAREN block optElse
+
+optElse : ELSE else_statement 
+		| EMPTY 
+
+else_statement 	: if_statement
+				| block
+
+while_statement : WHILE OPAREN expression CPAREN block
+
+expression	: unary
+			| unary operator_sequence expression
+
+operator_sequence	: operator
+					| operator operator_sequence
+
+operator 	: DIVIDE 
+			| EQUALS 
+			| EQUALS 
+			| EXCLAMATION
+			| FEWER
+			| FEWER
+			| GREATER
+			| GREATER
+			| MINUS 
+			| PLUS
+			| TIMES
+
+unary	: INTEGER
+		| REAL
+		| BOOLEAN
+		| CHARACTER
+		| STRING
+		| OPAREN expression OPAREN
+		| MINUS unary
+		| identifier_sequence opt_method_call
+
+opt_method_call	: method_call
+				| EMPTY
+
+method_call	: OPAREN opt_argument_sequence CPAREN
+
+opt_argument_sequence	: argument_sequence
+						| EMPTY
+
+argument_sequence	: expression
+					| expression COMMA argument_sequence

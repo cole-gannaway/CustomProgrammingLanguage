@@ -1,0 +1,17 @@
+import java.example.example;
+
+class Main {
+	var string;
+	function do_nothing_function () {
+		/* Do Nothing */
+		return;
+	}
+	function max (x,y){
+		if (x > y){
+			return x;
+		}
+		else {
+			return y;
+		}
+	}
+}

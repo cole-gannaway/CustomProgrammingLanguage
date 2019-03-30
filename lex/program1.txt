@@ -1,0 +1,34 @@
+
+import java.example.example;
+
+class Main {
+	var integer = 2;
+	var string = "Hello world";
+	var double = 2.0;
+	var char = "c";
+	function function1 (argument1, argument2) {
+		var sum = (argument1 + argument2);
+		return (sum);
+	}
+	function nested_if_function (argument1){
+		if (argument1 != 0){
+			if (argument1 == 1){
+				var sum = 2;
+			}
+			else if (argument1 == 2) {
+				var sum = 2;
+			}
+			else {
+				var sum = 2;
+			}
+		}
+		return sum;
+	}
+	function loop_function (argument1){
+		var i = 0;
+		while (i < argument1){
+			i = i + 1;
+		}
+		return void;
+	}
+}

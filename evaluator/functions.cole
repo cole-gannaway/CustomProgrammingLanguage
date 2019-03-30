@@ -1,0 +1,20 @@
+class Main{
+	function printNum (x){
+		print(x,endl);
+	}
+	function doStuff(g,n){
+		g(n);
+	}
+	function z(a,b){
+		function y(g,h){
+			return (g + h);
+		}
+		return y(a,b);
+	}
+	function main () {
+		var f = printNum;
+		doStuff(f,10); /*Pass function as a variable, just prints a variable*/
+		var result = z(12,2); /*Nested function that does sums numbers*/
+		print(result,endl);
+	}
+}

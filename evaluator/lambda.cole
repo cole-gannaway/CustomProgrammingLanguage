@@ -1,0 +1,10 @@
+class Main {
+    function main(){
+	var n = 10;
+        var f = lambda (n){
+		print("This number is ",n,endl);
+	};
+	f(10);
+	f(12);
+    }
+}

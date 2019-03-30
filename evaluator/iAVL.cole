@@ -1,0 +1,242 @@
+class Main {
+	function AVL (root,last,size){
+		return this;
+	}
+	function newAVL(){
+		return AVL(null,null,0);
+	}
+	function debugAVL(a){
+		displayAVL(a);
+		print("AVL size is ", a.size ,endl);        
+	}
+	function getRHS(a){
+		if (a.root == null){ return null; }
+		var ptr = a.root;
+		var before = ptr;
+		while (ptr != null){
+			before = ptr;
+			ptr = ptr.right;
+		}
+		return before;
+	}
+	function displayAVL(a){
+		a.last = getRHS(a);
+		inorderAVL(a,a.root);
+		print(endl);
+	}
+	function inorderAVL(a,ptr){
+		if (ptr != null){
+			inorderAVL(a,ptr.left);
+			displayAVLNode(a,ptr);
+			inorderAVL(a,ptr.right);
+		}
+		return null;
+	}
+	function insertAVL(a,newVal){
+		var created = newNode(newVal);
+		var ptr = a.root;
+		if (ptr == null){
+			a.root = created;
+			a.size = a.size + 1;
+			return created;
+		}
+		var before = ptr;
+		while (ptr != null){
+			before = ptr;
+			if (created.value > ptr.value){
+				ptr = ptr.right;
+			}
+			else{
+				ptr = ptr.left;
+			}
+		}
+		if (created.value > before.value){
+			before.right = created;
+		}
+		else {
+			before.left = created;
+		}
+		created.parent = before;
+		insertionFixUpAVL(a,created);
+		a.size = a.size + 1;
+		return created;        
+	}
+	function insertionFixUpAVL(a,x){
+		var p = null;
+		while (true){
+			if (a.root.value == x.value){ /*root */
+				return null;
+			}
+			p = x.parent;
+			var f = favoriteNODE(p);
+			if (f != null){ 
+				if (f.value != x.value){ /*Case 1 */
+					setBalanceNODE(p);
+					return null;
+				}        
+			}
+			/* parent is balanced */
+			if (p.balance == 0){
+				setBalanceNODE(p);
+				x = p;
+				/* continue looping */
+			}
+			else{
+				var y = favoriteNODE(x);
+				/*not linear */
+				if (y != null){
+				if (linear(y,x,p) == false){
+					rotate(y,x,a);
+					rotate(y,p,a);
+					setBalanceNODE(x);
+					setBalanceNODE(p);
+					setBalanceNODE(y);
+				}
+				}
+				else{
+					rotate(x,p,a);
+					setBalanceNODE(p);
+					setBalanceNODE(x);
+				}
+				return null;
+			}
+		}
+		return null;
+	}
+	function rotate (c,p,a){
+		if (a.root.value == p.value){
+			a.root = c;
+		}
+		else {
+			var gp = p.parent;
+			if (gp.left.value == p.value){
+				gp.left = c;
+			}
+			else {
+				gp.right = c;
+			}
+		}
+		if (p.left.value == c.value){
+			rightRotate(p,c);
+		}
+		else {
+			leftRotate(p,c);
+		}
+	}
+	function leftRotate(p,c){
+		var gp = p.parent;
+		c.parent = gp;
+		var lc = c.left;
+		if (lc != null) { lc.parent = p; }
+		p.right = lc;
+		p.parent = c;
+		c.left = p;
+		return null;
+	}
+	function rightRotate(p,c){
+		var gp = p.parent;
+		c.parent = gp;
+		var rc = c.right;
+		if (rc != null) { rc.parent = p; }
+		p.left = rc;
+		p.parent = c;
+		c.right = p;
+		return null;
+	}
+	function linear (y,x,p){
+		if ((x.left.value == y.value) && (p.left.value == x.value)){
+			return true;
+		}
+		if ((x.right.value == y.value) && (p.right.value == x.value)){
+			return true;
+		}
+		return false;
+	}
+	function NODE (value,right,left,parent,count,balance,height){
+		return this;
+	}
+	function newNode (v) {
+		return NODE(v,null,null,null,1,0,1);
+	}
+	function displayNODE(n){
+		print(n.value);
+		var negativeOne = 0-1;
+		if (n.balance == negativeOne){
+			print("-");
+		}
+		else if (n.balance == 1) {
+			print("+");
+		}
+	}
+	function displayAVLNode(a,n){
+		if (a.root.value == n.value) {
+			print("[");
+		}
+		displayNODE(n);
+		if (a.root.value == n.value) {
+			print("]");
+		}
+		var p = n.parent;
+		if (p != null) {
+			print("(");
+			displayNODE(p);
+			print(")");
+		}
+		if (a.last != null){
+			if (n.value != a.last.value){
+				print(" ");
+			}
+		}
+		return null;
+	}
+	function favoriteNODE(n){
+		var negativeOne = 0-1;
+		if(n.balance == negativeOne){
+			return n.right;
+		}
+		else if (n.balance == 1){
+			return n.left;
+		}
+		return null;
+	}
+	function max(a,b){
+		if (a > b) { return a; }
+		return b;
+	}
+	function setBalanceNODE(n){
+		var lHeight = 0;
+		var rHeight = 0;
+		if (n.left != null) { lHeight = n.left.height; }
+		if (n.right != null) { rHeight = n.right.height;}
+		n.balance = (lHeight-rHeight);
+		n.height = (max(lHeight,rHeight) + 1);
+		return null;
+	}
+	function interpreter(fp){
+		var tree = newAVL();
+		var action = 0;
+		var num = 0;
+		while (atFileEnd(fp) == false){       
+			action = readInteger(fp);
+			if (action == 1){
+				num = readInteger(fp);
+				insertAVL(tree,num);
+			}
+			else if (action == 0){
+				displayAVL(tree);
+				return null;
+			}
+		}
+		return null;
+	}
+	function main(){
+		var count = getArgCount();
+		if (count < 2){
+			print("Please enter a command line argument to read in integers from a file", endl);
+			return null;
+		}
+		var fp = openFileForReading(getArg(1));
+		interpreter(fp);
+		closeFile(fp);
+	}
+}

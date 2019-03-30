@@ -1,0 +1,114 @@
+program : opt_import_statement_sequence class_definition
+
+opt_import_statement_sequence	: import_statement_sequence
+								| EMPTY
+
+import_statement_sequence	: import_statement
+							| import_statement import_statement_sequence
+
+import_statement	: IMPORT identifier_sequence SEMI
+
+identifier_sequence	: ID
+					| ID DOT identifier_sequence
+
+class_definition : CLASS ID OBRACE definition_sequence CBRACE
+
+definition_sequence	: definition
+					| definition definition_sequence
+
+definition	: variable_def
+			| method_def
+			| class_definition
+
+variable_def	: VAR ID optInit SEMI
+
+opt_init	: init
+			| EMPTY
+
+init : EQUALS expression
+
+expression	: reg_expression 
+			| reg_expression operator expression
+			| reg_expression bool_operator expression
+
+method_def	: FUNCTION ID OPAREN opt_parameter_sequence CPAREN block
+
+opt_parameter_sequence	: parameter_sequence
+						| EMPTY
+
+parameter_sequence	: unary
+					| unary COMMA parameter_sequence
+
+block : OBRACE statement_sequence CBRACE
+
+statement_sequence	: statement 
+					| statement statement_sequence
+
+statement	: id_statement
+			| reg_expression SEMI
+			| variable_def
+			| method_def
+			| return_statement
+			| if_statement
+			| while_statement
+
+id_statement	: identifier_sequence init SEMI
+				| identifier_sequence method_call SEMI
+
+return_statement : RETURN expression SEMI
+
+if_statement : IF OPAREN bool_expression CPAREN block optElse
+
+optElse	: ELSE else_statement 
+		| EMPTY 
+
+else_statement 	: if_statement
+				| block
+
+while_statement : WHILE OPAREN bool_expression CPAREN block
+
+reg_expression	: unary
+				| unary operator reg_expression
+
+bool_expression	: reg_expression
+				| reg_expression bool_operator reg_expression
+
+operator 	: DIVIDE  
+			| MINUS 
+			| PLUS
+			| TIMES
+
+bool_operator	: EQUALS EQUALS
+				| EXCLAIM optEqual
+				| FEWER optEqual
+				| GREATER optEqual
+				| VERT_BAR VERT_BAR
+				| AMPERSAND AMPERSAND
+
+optEqual	: EQUALS
+			| EMPTY
+
+unary	: INTEGER
+		| REAL
+		| BOOLEAN
+		| CHARACTER
+		| STRING
+		| NULL
+		| OPAREN expression OPAREN
+		| MINUS unary
+		| identifier_sequence opt_method_call
+		| NEWLINE
+		| lamda_funct
+
+lamda_funct : LAMBDA OPAREN opt_parameter_sequence CPAREN block
+
+opt_method_call	: method_call
+				| EMPTY
+
+method_call	: OPAREN opt_argument_sequence CPAREN
+
+opt_argument_sequence	: argument_sequence
+						| EMPTY
+
+argument_sequence	: expression
+					| expression COMMA argument_sequence

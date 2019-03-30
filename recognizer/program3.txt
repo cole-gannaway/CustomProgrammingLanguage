@@ -1,0 +1,1 @@
+class Main { var int = 2; function do_nothing_function () { /* Do Nothing */ return; } }

@@ -1,0 +1,21 @@
+class Main {
+    function node(value,next){
+        return this;
+    }
+    function printList(ptr){
+        while (ptr != null) { 
+            print(ptr.value,endl);
+            ptr = ptr.next;
+        }
+    }
+    function main(){
+        var a = node(1,null);
+        var b = node(2,null);
+        var c = node(3,null);
+        var d = node(4,null);
+        a.next = b;
+        b.next = c;
+        c.next = d;
+        printList(a);
+    }
+}

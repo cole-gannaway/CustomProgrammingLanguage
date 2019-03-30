@@ -1,0 +1,6 @@
+class Main{
+	/*function must have a closing parenthesis*/
+	function main ( {
+		print("Hello World");
+	}
+}

@@ -1,0 +1,32 @@
+
+import java.example.example;
+
+class Main {
+	var integer = 2;
+	var string = "Hello world";
+	var double = 2.0;
+	var char = "c";
+	var function (argument1, argument2) {
+		return (argument1 + argument2);
+	}
+	var nested_if_function (argument1){
+		if (argument1 != 0){
+			if (argument1 == 1){
+				return false;
+			}
+			else if (argument1 == 2) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+	}
+	var loop_function (argument1){
+		var i = 0;
+		while (i < argument1){
+			i++;
+		}
+		return void;
+	}
+}

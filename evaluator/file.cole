@@ -1,0 +1,13 @@
+class Main {
+	function main(){
+        var sum = 0;
+        var fp = openFileForReading("data.ints");
+        var i = 0;
+        while (atFileEnd(fp) == false){            
+            i = readInteger(fp);
+            sum = sum + i;
+        }
+        print("sum is ",sum,endl);
+        closeFile(fp);
+	}
+}

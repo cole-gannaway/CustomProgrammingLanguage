@@ -1,0 +1,13 @@
+class Main {
+	function main(){
+        var count = getArgCount();
+        var i = 0;
+        var string;
+        while (i < count){
+            string = getArg(i);
+            print(string,endl);
+            i = i + 1;
+        }
+        
+	}
+}

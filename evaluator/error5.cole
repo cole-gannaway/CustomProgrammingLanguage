@@ -1,0 +1,11 @@
+class Main{
+	function main () {		
+		var string = "hello";
+		var string2 = "hello2";
+		/* Strings can be added, but not subtracted */
+		var result = string + string2;
+		print(result,endl);
+		result = string - string2;
+		print(result,endl);
+	}
+}

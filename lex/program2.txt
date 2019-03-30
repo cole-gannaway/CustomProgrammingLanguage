@@ -1,0 +1,31 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.example.example;
+
+class Main {
+	var int = 2;
+	var function () {
+		/* Do Nothing */
+		return;
+	}
+}

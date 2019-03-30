@@ -1,0 +1,86 @@
+program : opt_aux_file class_definition
+
+opt_aux_file	: aux_file SEMI
+				| EMPTY
+
+aux_file	: IMPORT identifier_sequence
+
+identifier_sequence	: ID
+					| ID DOT identifier_sequence
+
+class_definition : CLASS ID OBRACE block_sequence CBRACE
+
+block_sequence	: block_element
+				| block_element block_sequence
+
+block_element	: method_def
+				| method_call SEMI
+				| variable_def
+				| variable_assign
+				| conditional
+				| loop
+				| expression SEMI
+
+method_def	: FUNCTION ID OPAREN opt_parameter_sequence CPAREN OBRACE block_sequence RETURN expression SEMI CBRACE
+
+method_call	: identifier_sequence OPAREN opt_argument_sequence CPAREN
+
+variable_def	: VAR ID EQUALS expression SEMI
+				| VAR ID SEMI
+				| array_def
+
+variable_assign	: ID EQUALS expression SEMI
+
+expression	: unary
+			| unary operator_sequence expression
+
+unary	: INTEGER
+		| REAL
+		| BOOLEAN
+		| CHARACTER
+		| STRING
+		| method_call
+		| OPAREN expression OPAREN
+		| MINUS unary
+		| identifier_sequence
+		| array_access
+
+operator_sequence	: operator
+					| operator operator_sequence
+
+operator 	: DIVIDE 
+			| EQUALS 
+			| EQUALS 
+			| EXCLAMATION
+			| FEWER
+			| FEWER
+			| GREATER
+			| GREATER
+			| MINUS 
+			| PLUS
+			| TIMES
+			
+opt_parameter_sequence	: parameter_sequence
+						| EMPTY
+
+parameter_sequence	: unary
+					| unary COMMA parameter_sequence
+
+opt_argument_sequence	: argument_sequence
+						| EMPTY
+
+argument_sequence	: expression
+					| expression COMMA argument_sequence
+
+conditional : IF unary OBRACE block_sequence CBRACE
+			| ELSE conditional
+			| ELSE OBRACE block_sequence CBRACE
+
+loop : WHILE OPAREN expression CPAREN OBRACE block_sequence CBRACE
+
+array_def	: VAR ID OBRACKET expression CBRACKET SEMI
+
+array_access	: ID array_sequence
+
+array_sequence	: OBRACKET expression CBRACKET
+				| OBRACKET expression CBRACKET array_sequence

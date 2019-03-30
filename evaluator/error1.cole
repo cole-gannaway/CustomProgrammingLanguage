@@ -1,0 +1,4 @@
+class Main{
+	/*function is a keyword and can't be used as a variable name */
+	var function = 1;
+}

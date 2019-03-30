@@ -1,0 +1,32 @@
+
+import java.example.example;
+
+class Main {
+	function is_zero_through_three (arg1){
+		if (arg1 != 0){
+			if (arg1 == 1){
+				return true;
+			}
+			else if (arg1 == 2) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return true;
+		}
+	}
+	function is_zero (arg1){
+		if (arg1 == 0){ return true; }
+		return false;
+	}
+	function main (){
+		var num = 0;
+		print("Testing is_zero() with ", num, endl, endl);
+		var result = is_zero(0);
+		print("Finished main Program", endl, endl);
+		print("Result of is_zero is ", result,endl);
+	}
+}

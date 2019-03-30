@@ -1,0 +1,7 @@
+class Main{
+	function main () {
+		/* Can not multiply by null*/
+		var result = 2 * null;
+		print(result);
+	}
+}

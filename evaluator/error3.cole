@@ -1,0 +1,8 @@
+class Main{
+	function main () {
+		/* if statements must have open and closing braces */
+		var x = 1;
+		if (x == 0) return;
+		print(x);
+	}
+}
